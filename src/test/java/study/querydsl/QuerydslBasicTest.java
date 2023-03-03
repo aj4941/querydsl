@@ -118,8 +118,30 @@ public class QuerydslBasicTest {
                 .select(member.count()) //select count(member.id)
                 .from(member)
                 .fetchOne();
-        System.out.println("totalCount = " + totalCount);
 
+        System.out.println("totalCount = " + totalCount);
+    }
+
+    // 정렬 순서 : 회원 나이 desc, 회원 이름 asc
+    @Test
+    public void sort() {
+        em.persist(new Member(null, 100));
+        em.persist(new Member("member5", 100));
+        em.persist(new Member("member6", 100));
+
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .where(member.age.eq(100))
+                .orderBy(member.age.desc(), member.username.asc().nullsLast())
+                .fetch(); // 이름이 없으면 null 이고 마지막에 출력
+
+        Member member5 = result.get(0);
+        Member member6 = result.get(1);
+        Member memberNull = result.get(2);
+
+        assertThat(member5.getUsername()).isEqualTo("member5");
+        assertThat(member6.getUsername()).isEqualTo("member6");
+        assertThat(memberNull.getUsername()).isNull();
 
     }
 }
