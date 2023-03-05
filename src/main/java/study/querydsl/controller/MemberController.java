@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import study.querydsl.dto.MemberSearchCondition;
 import study.querydsl.dto.MemberTeamDto;
 import study.querydsl.repository.MemberJpaRepository;
+import study.querydsl.repository.MemberRepository;
 
 import java.util.List;
 
