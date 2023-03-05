@@ -207,7 +207,7 @@ public class QuerydslBasicTest {
         List<Member> result = queryFactory
                 .selectFrom(member)
                 .join(member.team, team)// 기본 inner join (on 조건이 없으면 id 값으로 조인)
-                .where(team.name.eq("teamA"))
+                .where(team.name.eq("teamA")) // 조인이 된 테이블에서 team.name을 찾음
                 .fetch();
 
         // 객체에서 특정 필드를 골라서 값의 유무를 확인할 때 사용 (정확하게 값이 같은지 확인 - containsExactly)
